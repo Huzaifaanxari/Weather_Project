@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+body{
+    font-family: 'Lato', sans-serif;
+    background-color: #6db5d1;
+}
+.Container{
+    /* border: 2px solid Black; */
+    width: 50%;
+    /* height: 300px; */
+    margin: 50px auto;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #94dbf8;
+    background-image: url(Cloud.png); 
+    background-size: cover;
+    box-shadow: 10px 10px 30px 10px #60a8c4; 
+}
+.box{
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+#output_box{
+    padding: 10px 0;
+}
+input{
+    width: 70%;
+    height: 2.7rem;
+    border-radius: 19px 0 0 0;
+    text-align: center;
+    font-size: 1.2rem;
+    border: 1px solid #6db5d1;
+}
+button{
+    width: 30%;
+    height: 3rem;
+    border-radius: 0 19px 0 0;
+    cursor: pointer;
+    font-size: 1.2rem;
+    background-color: #00ffff;
+    border: 1px solid #6db5d1;
+}
+button:hover{
+    background-color: #48b4e0;
+}
+
+
+@media screen and (max-width : 600px) {
+    .Container{
+        width: 100%;
+    }
+    .mediaQuery{
+        flex-direction: column;
+    }
+    .mediaQuery h3{
+    align-self: flex-end;
+    margin: 1rem 1.5rem 1rem 0;
+
+    }
+}

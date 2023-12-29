@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Application</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1 style="text-align: center;">Weather Application</h1>
+    <div class="Container" id="cont">
+
+        <div class="box" style="height: 20%;">
+            <input type="text" placeholder="Please Enter City Name" id="city_input">
+            <button id="btn">Click Her</button>
+        </div>
+        <div class="box" id="output_box" style="height: 80%;">
+
+            <div class="box" style="flex-direction: column; padding: 0 0 0 15px;">
+                <h2>City Name</h2>
+                <h3>Date</h3>
+                <h3>Day</h3>
+            </div>
+            <div class="box" style="flex-direction: column;">
+                <div class="box mediaQuery" id="mediaQuery">
+                    <h3><span style="font-weight: bold;">&uparrow;</span>&nbsp;Cloud</h3>
+                    <h3><span style="font-weight: bold;">&downarrow;</span>&nbsp;Condition</h3>
+                </div>
+                <div class="mediaQuery" style="display: flex;">
+                    <h1 style="align-self: flex-end; margin: 5%; font-size: 4rem;">Degree&deg;</h1>
+                    <img src="https://cdn.weatherapi.com/weather/64x64/day/116.png" alt="" style="width: 10rem;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById("city_input");
+        const button = document.getElementById("btn");
+
+        async function getData(city_name) {
+            const pormis = await fetch(`http://api.weatherapi.com/v1/current.json?key=7de327067f2d4bed82e143332233007&q=${city_name}&aqi=yes`)
+            return await pormis.json();
+        }
+        button.addEventListener("click", async () => {
+            const value = input.value;
+            const result = await getData(value);
+            var CityName = result.location.region;
+            var CountryName = result.location.country;
+            var local_time = result.location.localtime;
+            var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']; 
+            var dayName = days[new Date().getDay()];
+            var cld = result.current.cloud;
+            var cdtxt = result.current.condition.text;
+            var Deg = result.current.temp_c;
+            var img = result.current.condition.icon;
+            console.log(CityName);
+
+            document.getElementById("output_box").innerHTML = `
+            <div class="box" style="flex-direction: column; padding: 0 0 0 15px;">
+                <h2>${CityName},${CountryName}</h2>
+                <h3>${local_time}</h3>
+                <h3>${dayName}</h3>
+            </div>
+            <div class="box" style="flex-direction: column;">
+                <div class="box mediaQuery" id="mediaQuery">
+                    <h3><span style="font-weight: bold;">&uparrow;</span>&nbsp;${cld}Cloud</h3>
+                    <h3><span style="font-weight: bold;">&downarrow;</span>&nbsp;${cdtxt}</h3>
+                </div>
+                <div class="mediaQuery" style="display: flex;">
+                    <h1 style="align-self: flex-end; margin: 5%; font-size: 4rem;">${Deg}&deg;C</h1>
+                    <img src="https:${img}" alt="" style="width: 10rem;">
+                </div>
+            </div>
+            `;
+        });
+    </script>
+</body>
+
+</html>
